@@ -42,6 +42,9 @@ export default function Landing() {
             Login
           </Link>
         </Text>
+        <Text marginTop="1rem" color="gray.500">
+        Designed for mobile only
+        </Text>
       </Box>
     </Box>
   );
