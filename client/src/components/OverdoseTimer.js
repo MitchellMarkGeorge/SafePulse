@@ -5,15 +5,14 @@ import { ROUTES } from "../services/routes";
 import Logo from "./Logo";
 
 export default function OverdoseTimer({ session, userData }) {
-    const navigate = useNavigate()
-  const toast = useToast()
+  const navigate = useNavigate();
+  const toast = useToast();
   const [time, setTime] = useState(10);
   const [isOver, setIsOver] = useState(false);
   const [overdoseWarning, setOverdoseWarning] = useState(false);
 
   const tick = () => {
     if (isOver) {
-      // go to the second state
       return;
     }
     if (time === 0) {
@@ -27,32 +26,31 @@ export default function OverdoseTimer({ session, userData }) {
   };
 
   const emergency = () => {
-      navigate(ROUTES.SAVE_ME);
-  }
+    navigate(ROUTES.SAVE_ME);
+  };
 
   const stop = () => {
-      navigate(ROUTES.SAFETY_CHECK);
-  }
+    navigate(ROUTES.SAFETY_CHECK);
+  };
 
   const dial911 = () => {
-      toast({
-          title: "Dailing 911...",
+    toast({
+      title: "Dailing 911...",
+      variant: "solid",
+      status: "loading",
+      duration: 10000, // 10 seconds
+      onCloseComplete: () => {
+        toast({
+          title: "Emergency services have been notified",
+          description: "They should arrive soon to assist you",
           variant: "solid",
-          status: "loading",
-          duration: 10000, // 10 seconds
-          onCloseComplete: () => {
-              toast({
-                  title: "Emergency services have been notified",
-                  description: "They should arrive soon to assist you",
-                  variant: "solid",
-                  status: "success",
-                  duration: 5000
-              })
-          }
-      })
-      // might not actully call the api as that would spam teammate
-  }
-
+          status: "success",
+          duration: 5000,
+        });
+      },
+    });
+    // might not actully call the api as that would spam teammate
+  };
 
   useEffect(() => {
     const timerId = setInterval(() => tick(), 1000);
@@ -103,24 +101,45 @@ export default function OverdoseTimer({ session, userData }) {
         <VStack>
           {/* navigate to safety check*/}
           {overdoseWarning ? (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={dial911}>
-{/* call send request to backend             */}
+            <Button
+              marginTop="1rem"
+              width={64}
+              color="red.500"
+              size="lg"
+              onClick={dial911}
+            >
               Dial 911
             </Button>
           ) : null}
           {!overdoseWarning ? (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={emergency}>
+            <Button
+              marginTop="1rem"
+              width={64}
+              color="red.500"
+              size="lg"
+              onClick={emergency}
+            >
               EMERGENCY
             </Button>
           ) : (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={emergency}>
+            <Button
+              marginTop="1rem"
+              width={64}
+              color="red.500"
+              size="lg"
+              onClick={emergency}
+            >
               Save Me
-              {/* go to save me page */}
             </Button>
           )}
-          <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={stop}>
+          <Button
+            marginTop="1rem"
+            width={64}
+            color="red.500"
+            size="lg"
+            onClick={stop}
+          >
             Stop
-            {/* go to safety check page (will then redirect to home when done) */}
           </Button>
         </VStack>
       </Box>

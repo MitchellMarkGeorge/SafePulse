@@ -32,7 +32,7 @@ export default function Home() {
   const toast = useToast();
   useEffect(() => {
     if (!userData) {
-        // if there was no userData, that means the user just logged in and the data has not been gotten from the database
+      // if there was no userData, that means the user just logged in and the data has not been gotten from the database
       getUserData(auth?.currentUser?.uid)
         .then((snap) => {
           if (snap.exists()) {
@@ -58,15 +58,11 @@ export default function Home() {
       // this means the user just signed up and their user data was just saved
       setIsLoading(false);
     }
-  }, []);
+  }, [userData, setUserData, toast]);
 
-  const gotToSagfeUsePage = () => {
-    navigate(ROUTES.SAFE_USE);
-  };
 
   if (isLoading) return <Loading />;
   return (
-    // use loading component?
     <Box padding="2rem" height="100%">
       <Box>
         <Logo size="2xl" />

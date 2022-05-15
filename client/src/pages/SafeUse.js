@@ -39,7 +39,6 @@ export default function SafeUse() {
           if (snap.exists()) {
             setIsLoading(false);
             setUserData(snap.val());
-            // onOpen();
           } else {
             toast({
               title: "Error: Unable to get user data",
@@ -48,20 +47,22 @@ export default function SafeUse() {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-          toast({
-            title: "Error: Unable to get user data",
-            variant: "solid",
-            status: "error",
-          });
-        }, [userData, setUserData, onOpen, toast]);
+        .catch(
+          (err) => {
+            console.log(err);
+            toast({
+              title: "Error: Unable to get user data",
+              variant: "solid",
+              status: "error",
+            });
+          },
+          [userData, setUserData, onOpen, toast]
+        );
     } else {
       // this means the user just signed up and their user data was just saved
-    //   onOpen();
       setIsLoading(false);
     }
-  });
+  }, [userData, setUserData, onOpen, toast]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -71,12 +72,9 @@ export default function SafeUse() {
       accessInstructions,
       date: new Date().toString(),
     };
-    setSession(session)
+    setSession(session);
     try {
-      await addNewDrugSession(
-        session,
-        auth.currentUser.uid
-      );
+      await addNewDrugSession(session, auth.currentUser.uid);
       onOpen();
     } catch (error) {
       toast({
@@ -94,10 +92,7 @@ export default function SafeUse() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody padding={0}>
-            <OverdoseTimer
-                session={session}
-              userData={userData}
-            />
+            <OverdoseTimer session={session} userData={userData} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

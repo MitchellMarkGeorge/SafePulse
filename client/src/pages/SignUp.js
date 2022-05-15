@@ -8,7 +8,7 @@ import {
   Icon,
   Button,
   useToast,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 
 import { RiHeartPulseFill } from "react-icons/ri";
@@ -33,10 +33,9 @@ export default function SignUp() {
     setIsLoading(true);
     try {
       const { user } = await signUp(email, password);
-      const userData = { name, phoneNumber }
+      const userData = { name, phoneNumber };
       await set(ref(db, `user_data/${user.uid}`), userData);
-      setUserData(userData)
-
+      setUserData(userData);
 
       // should automatically route to home page if successful
     } catch (error) {
@@ -65,7 +64,6 @@ export default function SignUp() {
       console.log(error.message);
     }
   };
-  // put small graphic before form
   return (
     <Box
       display="flex"
@@ -74,7 +72,7 @@ export default function SignUp() {
       height="100%"
     >
       <Box>
-      <HStack textAlign="center" justifyContent="center">
+        <HStack textAlign="center" justifyContent="center">
           <Heading size="2xl">Sign Up</Heading>
           <Icon
             width={10}
