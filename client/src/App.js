@@ -7,15 +7,16 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import { useEffect, useState } from 'react';
 import { AuthContext } from './contexts/AuthContext';
-import { onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
+
 import Loading from './components/Loading';
 import NotFound from './pages/NotFound';
 import SafeUse from './pages/SafeUse';
+import SafetyCheck from './pages/SafetyCheck';
+import SaveMe from './pages/SaveMe';
 
 function App() {
-  // const [user, setUser] = useState(null)
-  const [displayName, setDisplayName] = useState("")
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -24,22 +25,7 @@ function App() {
   useEffect(() => {
     const unSubscriberFunction = onAuthStateChanged(auth, async (user) => {
       if (user) { 
-
-        // on login and sign up, try and get the user data and put it in the app context
-        // page transitions 
-
-        // signOut(auth)
-        // console.log(user)
-        // if (!user.displayName) {
-        //   // if there is no displayname, then the account was just created from the signup page
-        //   await updateProfile(auth.currentUser, {
-        //     displayName
-        //   })
-        //   auth.currentUser.reload();
-        //   console.log(auth.currentUser.displayName)
-        // }
         setIsAuthenticated(true)
-        // setUser(user)
       } else {
         setIsAuthenticated(false)
       }
@@ -51,10 +37,11 @@ function App() {
     return <Loading/>
   } else {
   return ( 
-    // might not be needed as
     <AuthContext.Provider value={{userData, setUserData}}>
     <Routes>
       <Route path={ROUTES.LANDING} element={<Landing/>}/>
+      <Route path={ROUTES.SAFETY_CHECK} element={<SafetyCheck/>}/>
+      <Route path={ROUTES.SAVE_ME} element={<SaveMe/>}/>
   {/*  if not authenticated, got to login. otherwise, go to home page       */}
       <Route path={ROUTES.HOME} element={!isAuthenticated ?  <Navigate to={ROUTES.LOGIN}/> : <Home/>}/>
       <Route path={ROUTES.SAFE_USE} element={!isAuthenticated ?  <Navigate to={ROUTES.LOGIN}/> : <SafeUse/>}/>

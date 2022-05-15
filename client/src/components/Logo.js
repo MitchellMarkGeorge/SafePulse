@@ -1,19 +1,19 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, HStack } from "@chakra-ui/react";
 import { RiHeartPulseFill } from "react-icons/ri";
 import { Icon } from "@chakra-ui/react";
 import React from "react";
 
-export default function Logo({ size = "3xl", color = "red.500"}) {
+export default function Logo({ size = "3xl", iconColor = "red.500", justify = false }) {
   return (
-    <Heading as='h1' size={size}>
+    <HStack justifyContent={justify ? "center" : null}>
       <Icon
-        width={10}
-        height={10}
-        lineHeight="100%"
+        boxSize={12}
         as={RiHeartPulseFill}
-        color={color}
+        color={iconColor}
       />
-      SafePulse
-    </Heading>
+      <Heading as="h1" size={size}>
+        SafePulse
+      </Heading>
+    </HStack>
   );
 }

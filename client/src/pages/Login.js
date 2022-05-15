@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import {
   Box,
   Heading,
-  FormControl,
   FormLabel,
   Input,
   Icon,
   Button,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
 
 import { RiHeartPulseFill } from "react-icons/ri";
@@ -23,7 +23,7 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { user } = await logIn(email, password);
+      await logIn(email, password);
       // should automatically route to home page if successful
     } catch (error) {
       setIsLoading(false);
@@ -54,8 +54,8 @@ export default function Login() {
       height="100%"
     >
       <Box>
-        <Heading size="2xl" textAlign="center">
-          Login
+        <HStack textAlign="center" justifyContent="center">
+          <Heading size="2xl">Login</Heading>
           <Icon
             width={10}
             height={10}
@@ -63,7 +63,7 @@ export default function Login() {
             as={RiHeartPulseFill}
             color="red.500"
           />
-        </Heading>
+        </HStack>
         <Box
           as="form"
           marginTop="1rem"

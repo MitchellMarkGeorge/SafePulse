@@ -1,18 +1,13 @@
-import { Box, Button, Heading, Image, VStack, Text } from "@chakra-ui/react";
-import { set } from "firebase/database";
+import { Box, Button, Heading, VStack, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import alarmClock from "../alarm.png";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../services/routes";
 import Logo from "./Logo";
 
 export default function OverdoseTimer({ session, userData }) {
-  const TIMER_STATE = {
-    INITAL: 0,
-    MORE_TIME: 1,
-    OVERDOSE_WARNING: 2,
-  };
-
-  const [timerState, setTimerState] = React.useState(TIMER_STATE.INITAL);
-  const [time, setTime] = useState(30);
+    const navigate = useNavigate()
+  const toast = useToast()
+  const [time, setTime] = useState(10);
   const [isOver, setIsOver] = useState(false);
   const [overdoseWarning, setOverdoseWarning] = useState(false);
 
@@ -24,26 +19,46 @@ export default function OverdoseTimer({ session, userData }) {
     if (time === 0) {
       setIsOver(true);
       setTimeout(() => {
-        console.log("hello");
         setOverdoseWarning(true);
-      }, 30000);
+      }, 10000);
     } else {
       setTime((time) => time - 1);
     }
   };
+
+  const emergency = () => {
+      navigate(ROUTES.SAVE_ME);
+  }
+
+  const stop = () => {
+      navigate(ROUTES.SAFETY_CHECK);
+  }
+
+  const dial911 = () => {
+      toast({
+          title: "Dailing 911...",
+          variant: "solid",
+          status: "loading",
+          duration: 10000, // 10 seconds
+          onCloseComplete: () => {
+              toast({
+                  title: "Emergency services have been notified",
+                  description: "They should arrive soon to assist you",
+                  variant: "solid",
+                  status: "success",
+                  duration: 5000
+              })
+          }
+      })
+      // might not actully call the api as that would spam teammate
+  }
+
 
   useEffect(() => {
     const timerId = setInterval(() => tick(), 1000);
     return () => clearInterval(timerId);
   });
 
-  useEffect(() => {
-    if (timerState === TIMER_STATE.MORE_TIME) {
-      setTimeout(() => {
-        console.log("hello");
-      }, 1000);
-    }
-  }, [timerState]);
   return (
     <Box
       display="flex"
@@ -53,10 +68,10 @@ export default function OverdoseTimer({ session, userData }) {
       backgroundColor="red.500"
     >
       <Box textAlign="center" backgroundColor="red.500">
-        <Logo color="gray.100" />
+        <Logo iconColor="gray.100" justify />
         {isOver && !overdoseWarning ? (
           <Text color="gray.100" marginTop="1rem" fontWeight="black">
-            Warning: Going into extra 30 seconds
+            Warning: Going into extra 10 seconds
           </Text>
         ) : null}
         {/* <Image src={alarmClock} /> */}
@@ -88,22 +103,22 @@ export default function OverdoseTimer({ session, userData }) {
         <VStack>
           {/* navigate to safety check*/}
           {overdoseWarning ? (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg">
+            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={dial911}>
 {/* call send request to backend             */}
               Dial 911
             </Button>
           ) : null}
           {!overdoseWarning ? (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg">
+            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={emergency}>
               EMERGENCY
             </Button>
           ) : (
-            <Button marginTop="1rem" width={64} color="red.500" size="lg">
+            <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={emergency}>
               Save Me
               {/* go to save me page */}
             </Button>
           )}
-          <Button marginTop="1rem" width={64} color="red.500" size="lg">
+          <Button marginTop="1rem" width={64} color="red.500" size="lg" onClick={stop}>
             Stop
             {/* go to safety check page (will then redirect to home when done) */}
           </Button>

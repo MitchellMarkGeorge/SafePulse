@@ -3,17 +3,16 @@ import React, { useState } from "react";
 import {
   Box,
   Heading,
-  FormControl,
   FormLabel,
   Input,
   Icon,
   Button,
   useToast,
+  HStack
 } from "@chakra-ui/react";
 
 import { RiHeartPulseFill } from "react-icons/ri";
 import { signUp } from "../services/auth";
-import { updateProfile } from "firebase/auth";
 import { useAuthContext } from "../contexts/AuthContext";
 import { ref, set } from "firebase/database";
 import { db } from "../services/firebase";
@@ -75,8 +74,8 @@ export default function SignUp() {
       height="100%"
     >
       <Box>
-        <Heading size="2xl" textAlign="center">
-          Sign Up
+      <HStack textAlign="center" justifyContent="center">
+          <Heading size="2xl">Sign Up</Heading>
           <Icon
             width={10}
             height={10}
@@ -84,7 +83,7 @@ export default function SignUp() {
             as={RiHeartPulseFill}
             color="red.500"
           />
-        </Heading>
+        </HStack>
         <Box
           as="form"
           marginTop="1.5rem"
@@ -125,7 +124,6 @@ export default function SignUp() {
           <Input
             id="phone_number"
             type="tel"
-            placeholder="xxx-xxx-xxxx"
             pattern="[0-9]{10}"
             marginBottom="1rem"
             isRequired

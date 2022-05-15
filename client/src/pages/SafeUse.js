@@ -15,13 +15,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
-import PageBox from "../components/PageBox";
 import { auth } from "../services/firebase";
 
-import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { addNewDrugSession, getUserData } from "../services/db";
-import { ROUTES } from "../services/routes";
 import { useAuthContext } from "../contexts/AuthContext";
 import OverdoseTimer from "../components/OverdoseTimer";
 
@@ -33,7 +30,6 @@ export default function SafeUse() {
   const [accessInstructions, setAccessInstructions] = useState("");
   const [drug, setDrug] = useState("");
   const [session, setSession] = useState(null);
-  const navigate = useNavigate();
   const toast = useToast();
   useEffect(() => {
     if (!userData) {
@@ -59,13 +55,13 @@ export default function SafeUse() {
             variant: "solid",
             status: "error",
           });
-        });
+        }, [userData, setUserData, onOpen, toast]);
     } else {
       // this means the user just signed up and their user data was just saved
     //   onOpen();
       setIsLoading(false);
     }
-  }, []);
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
