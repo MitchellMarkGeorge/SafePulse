@@ -9,6 +9,6 @@ export function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
 }
 
-export function signOut() {
-    return signOut(auth);
-}
+// export function signOut() {
+//     return signOut(auth);
+// }

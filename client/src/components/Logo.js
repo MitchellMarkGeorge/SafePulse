@@ -3,9 +3,9 @@ import { RiHeartPulseFill } from "react-icons/ri";
 import { Icon } from "@chakra-ui/react";
 import React from "react";
 
-export default function Logo() {
+export default function Logo({ size = "3xl"}) {
   return (
-    <Heading size="2xl">
+    <Heading as='h1' size={size}>
       <Icon
         width={10}
         height={10}

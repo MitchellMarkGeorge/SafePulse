@@ -2,5 +2,6 @@ export const ROUTES = {
     LANDING: "/",
     HOME: "/home",
     LOGIN: "/login",
-    SIGNUP: "/signup"
+    SIGNUP: "/signup",
+    SAFE_USE: "/safeuse"
 }
