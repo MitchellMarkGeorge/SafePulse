@@ -1,38 +1,53 @@
 from twilio.rest import Client
-import requests
-import json
+import requests, json, os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 
 #verification stuff
 ACCOUNT_SID = "AC625595eb95b974b23999488fa898c839"
-AUTH_TOKEN = "e010811a66a2ed9395a1b19fb761f05a"
+AUTH_TOKEN = "742bd071ba30e7362b77e87aa5d2e1dd"
 
 #string constants
 STR_START = '<Response><Say>'
 STR_END = '</Say></Response>'
 
-json_data = {'Name':'John', 'Phone':'6477803866', 'Address':'123 Street Street'} #test JSON
 client = Client(ACCOUNT_SID, AUTH_TOKEN) 
 
-#get information on user for call
-def get_info(json_data):
-    user_name = json_data['Name']
-    user_num = json_data['Phone'] 
-    user_address = json_data['Address']
-    return user_name, user_num, user_address
+app = Flask(name)
+CORS(app)
 
 #make call to authorities with user information
-def make_call(user_name, user_num, user_address, client):
+def make_call(voice_message, user_num, client):
     call = client.calls.create(
-                                twiml = str(STR_START + 'hello my name is ' + user_name + 'I am overdosing at ' + user_address + 'please send help' + STR_END), 
+                                twiml = voicemessage, 
                                 to='+16479900182', 
-                                from_= '+1' + str(user_num))
+                                from= '+1' + str(user_num))
     print(call.sid)
 
-def main():
-    user_name, user_num, user_address = get_info(json_data)
-    make_call(user_name, user_num, user_address, client)
-    
+#read JSON information, get information
+@app.route('/call', methods=['POST'])
+def read():
+    request_json = request.get_json()
+    user_name = request_json['name']
+    user_num = request_json['phone'] 
+    user_address = request_json['address']
+
+    if "access_information" in request_json:
+        user_access = request_json['access_information']
+        voice_message = str(STR_START + 'hello my name is ' + user_name + 'I am overdosing at ' + user_address + 'please send help' + user_access  + STR_END)
+    else:
+        voice_message = str(STR_START + 'hello my name is ' + user_name + 'I am overdosing at ' + user_address + 'please send help' + STR_END)
+    try:
+        # make_call(voice_message, user_num, client)
+        make_call(1)
+    except:
+        print("Call was not able to be made")
+        return json.dumps({'Error':True}), 403, {'ContentType':'application/json'} 
+    return json.dumps({'Success':True}), 200, {'ContentType':'application/json'} 
 
 
-if __name__ == "__main__":
-    main()
+
+
+# if name == "main":
+#     main()
