@@ -22,7 +22,7 @@ https://www2.gov.bc.ca/gov/content/overdose/what-you-need-to-know/responding-to-
 
 **SafePulse** is a mobile app designed to combat the opioid crisis. SafePulse provides users with resources that they might not know about such as _'how to respond to an overdose'_ or _'where to get free naxolone kits'._  Phone numbers to Live Support through 24/7 nurses are also provided, this way if the user chooses to administer themselves drugs, they can try and do it safely through the instructions of a registered nurse. There is also an Emergency Response Alarm for users, the alarm alerts emergency services and informs them of the type of drug administered, the location, and access instruction of the user.  Information provided to users through resources and to emergency services through the alarm system is vital in overdose prevention.
 
-##🛠️HOW WE BUILT IT🛠️
+## 🛠️HOW WE BUILT IT🛠️
 
 We wanted to get some user feedback to help us decide/figure out which features would be most important for users and ultimately prevent an overdose/saving someone's life. 
 
@@ -39,7 +39,7 @@ Tech Stack: ReactJS, Firebase, Python/Flask
 
 SafePulse was built with ReactJS in the frontend and we used Flask, Python and Firebase for the backend and used the Twilio API to make the emergency calls. 
 
-##😣 CHALLENGES WE RAN INTO😣
+## 😣 CHALLENGES WE RAN INTO😣
 
 - It was Jacky's **FIRST** hackathon and Matthew's **THIRD** so there was a learning curve to a lot of stuff especially since we were building an entire app
 - We originally wanted to make the app utilizing MERN, we tried setting up the database and connecting with Twilio but it was too difficult with all of the debugging + learning nodejs and Twilio documentation at the same time 🥺
@@ -70,7 +70,7 @@ SafePulse has a lot to do before it can be deployed as a genuine app.
 ## 🎁ABOUT THE TEAM🎁
 _we got two Matthew's by the way (what are the chances?)_
 
-Mitchell is a 1st year computer science student at Carleton University studying Computer Science. He is most inter tested in programing language enineering. You can connect with him at his [LinkedIn](https://www.linkedin.com/in/mitchell-monireoluwa-mark-george-261678155/) or view his [Portfolio] (https://github.com/MitchellMarkGeorge)
+Mitchell is a 1st year computer science student at Carleton University studying Computer Science. He is most inter tested in programing language enineering. You can connect with him at his [LinkedIn](https://www.linkedin.com/in/mitchell-monireoluwa-mark-george-261678155/) or view his [Portfolio](https://github.com/MitchellMarkGeorge)
 
 Jacky is a 2nd year Systems Design Engineering student at the University of Waterloo. He is most experienced with embedded programming and backend. He is looking to explore various fields in development.  He is passionate about reading and cooking. You can reach out to him at his [LinkedIn](https://www.linkedin.com/in/chenyuxiangjacky/) or view his [Portfolio](https://github.com/yuxstar1444)
 
@@ -78,5 +78,5 @@ Matthew B is an incoming 3rd year computer science student at Wilfrid Laurier Un
 
 Matthew W is a 3rd year computer science student at Simon Fraser University, currently looking for a summer 2022 internship. He has formal training in data science. He's interested in learning new and honing his current frontend skills/technologies. Moreover, he has a deep understanding of machine learning, AI and neural networks. He's always willing to have a chat about games, school, data science and more! You can reach out to him at his [LinkedIn](https://www.linkedin.com/in/matthew-wong-240837124/), visit his [website](https://wongmatt.dev) or take a look at what he's [working on](https://github.com/WongMatthew)
 
-###🥳🎉THANK YOU WLU FOR HOSTING HAWKHACKS🥳🎉
+### 🥳🎉THANK YOU WLU FOR HOSTING HAWKHACKS🥳🎉
 
